@@ -223,16 +223,28 @@ class UserLinks extends ModelBase {
     };
   }
 
-  factory UserLinks.fromJson(Map<String, dynamic> json) {
+  factory UserLinks.fromJson(Map<String, dynamic>? json) {
+    if (json == null) {
+      return UserLinks(
+        self: Uri(),
+        html: Uri(),
+        photos: Uri(),
+        likes: Uri(),
+        portfolio: Uri(),
+        followers: Uri(),
+        following: Uri(),
+      );
+    }
+
     return UserLinks(
       source: json,
-      self: (json['self'] as String).let(Uri.parse),
-      html: (json['html'] as String).let(Uri.parse),
-      photos: (json['photos'] as String).let(Uri.parse),
-      likes: (json['likes'] as String).let(Uri.parse),
-      portfolio: (json['portfolio'] as String).let(Uri.parse),
-      followers: (json['followers'] as String).let(Uri.parse),
-      following: (json['following'] as String).let(Uri.parse),
+      self: (json['self'] as String?)?.let(Uri.parse) ?? Uri(),
+      html: (json['html'] as String?)?.let(Uri.parse) ?? Uri(),
+      photos: (json['photos'] as String?)?.let(Uri.parse) ?? Uri(),
+      likes: (json['likes'] as String?)?.let(Uri.parse) ?? Uri(),
+      portfolio: (json['portfolio'] as String?)?.let(Uri.parse) ?? Uri(),
+      followers: (json['followers'] as String?)?.let(Uri.parse) ?? Uri(),
+      following: (json['following'] as String?)?.let(Uri.parse) ?? Uri(),
     );
   }
 }
